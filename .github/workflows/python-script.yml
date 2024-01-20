@@ -1,0 +1,21 @@
+name: python-script
+
+run-name: Run Python Script by ${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      dir_path:
+        type: string
+        description: Directory path that store all tests
+        required: true
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: python ./python-scripts/read_data.py ${{github.actor}} ${{github.event.inputs.dir_path}}
